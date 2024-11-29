@@ -1,0 +1,24 @@
+version: '3.9'
+services:
+  web:
+    build: ./web
+    ports:
+      - "5500:5000"
+    networks:
+      my_custom_network:
+        ipv4_address: 192.168.1.2
+  database:
+    image: postgres
+    environment:
+      POSTGRES_USER: USER
+      POSTGRES_PASSWORD: 12345
+    networks:
+     network_fortune_cookie:
+        ipv4_address: 192.168.1.3
+networks:
+ network_fortune_cookie:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "192.168.1.0/24"
+
